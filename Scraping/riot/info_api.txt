@@ -1,0 +1,37 @@
+documentazione: https://developer.riotgames.com/apis 
+costanti: https://developer.riotgames.com/docs/lol#general_game-constants
+
+key = RGAPI-04f2f51e-0810-4763-9bba-65fec8898a81
+
+le api che mi servono che si possono selezionare a sinistra sono 
+## SUMMONER-V4
+> in summoner tutti e 4 i metodi servono per avere le stesse informazioni con input differenti: questo è il mio
+* https://developer.riotgames.com/apis#summoner-v4/GET_getBySummonerName  
+https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/scarletbloody?api_key=RGAPI-cc34b06e-be77-4b02-acc5-a4d455c5123e
+
+qui mi serve per ottenere almeno un accountId (il modo per accedere al resto dei dati sulla piattaforma)
+ 
+Di questi dati mi interessa raccogliere il livello per fare una divisione tra i giocatori (più è alto, più hanno giocato di recente, perchè è un valore introdotto da pochi anni, nonostante il gioco ne abbia ormai 10) 
+Però è già un valore più per fare subset tra utenti.
+
+## MATCH-V4
+> qui servono 2 metodi 
+* https://developer.riotgames.com/apis#match-v4/GET_getMatchlist
+
+https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/HgoCSSbBOVNN8JP0StXL_72jqlfXU-cgSlx8uWY9EDWn-f4?api_key=RGAPI-cc34b06e-be77-4b02-acc5-a4d455c5123e
+
+Qui ottengo un json di 4 valori, lo "startIndex", definisce da quale partita inizio a prendere i dati, endIndex viene messo di default a start+100, non posso chiederne più di 100 alla volta. 
+(in query parameters posso definire questi index, begin time e end time idem, ma sono basati a range temporali) 
+
+in matches la lista di match con informazioni basilari, il gameId (per interrogare il server per quel match specifico), queue (il tipo di partita, tipo quella 5v5, oppure 5reali vs 5bot, mappa diversa ecc), timestamp, questo valore è ricavabile anche con la query successiva (si chiama gameCreation) 
+
+* https://developer.riotgames.com/apis#match-v4/GET_getMatch
+https://euw1.api.riotgames.com/lol/match/v4/matches/4713294703?api_key=RGAPI-cc34b06e-be77-4b02-acc5-a4d455c5123e
+
+query con gameId = 4713294703
+
+qui ottengo i dati 
+- ora e data di quando è stata fatta la partita (gameCreation) 
+- durata partita (gameDuration) 
+- lista di giocatori (participantIdentities)
+	> player (PlayerDTO): struttura dati che contiene l'accountId per fare di nuovo una chiamata su "get:match-v4/GET_getMatchlist"

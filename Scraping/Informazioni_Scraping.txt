@@ -12,3 +12,12 @@ Dato che ho 100 richieste ogni 2 minuti, l'ho strutturato in questa maniera, 1 r
 Uso dello spider `riot_spyder.py`
 * [OP.GG](https://euw.op.gg/): interrogazioni sul server mediante l'uso di un sitoweb che raccoglie in modo ordinato le informazioni
 Uso dello spider `opgg_spyder.py`
+
+
+____
+* `settings.py`: riga #30 modificare in `DOWNLOAD_DELAY = 1.2` (sec) perchè 
+> Rate Limits
+20 requests every 1 seconds
+100 requests every 2 minutes
+
+

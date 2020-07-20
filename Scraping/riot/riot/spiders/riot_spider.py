@@ -1,11 +1,9 @@
 #https://docs.scrapy.org/en/latest/topics/request-response.html#scrapy.http.Response
-
-
 import scrapy
-
 
 class RiotSpider(scrapy.Spider):
     name = 'riot'
+
 
     start_urls = ["https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/scarletbloody?api_key=RGAPI-cc34b06e-be77-4b02-acc5-a4d455c5123e"]
 
@@ -19,12 +17,11 @@ class RiotSpider(scrapy.Spider):
                 "matches by accountID" : lambda accountID : f"https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/{accountID}?api_key={key}",
                 "match info by matchID" : lambda matchID : f"https://euw1.api.riotgames.com/lol/match/v4/matches/{matchID}?api_key={key}"
             }
-
-        '''
+    '''
 
 #---------------------------------------- PARSE SUMMONER
     def parse(self, response):
-        print("-----------------------------------------------------------------------------"+response.url)
+        print("\n-----------------------------------------------------------------------------PARSE USER\n")
        
         #trasformo in dict una stringa che contiene un dizionario/json
         summoner_data = eval(response.text)
@@ -41,14 +38,10 @@ class RiotSpider(scrapy.Spider):
             )
         yield request_matches
 
-        yield{
-            summoner_data, 
-            level
-        }
 
 #---------------------------------------- PARSE LISTA MATCH
     def parse_matches(self, response): 
-        print("-----------------------------------------------------------------------------"+response.url)
+        print("\n-----------------------------------------------------------------------------PARSE LIST MATCH\n")
         summoner_matches = eval(response.text)['matches']
 
         
@@ -64,17 +57,9 @@ class RiotSpider(scrapy.Spider):
                 callback=self.parse_match)
             yield request_match
         
-        yield{
-            platform,
-            queueid,
-            timestamp
-        }
-        
-
-
 #---------------------------------------- PARSE Singolo MATCH
     def parse_match(self, response): 
-        print("\n-----------------------------------------------------------------------------\n"+response.url)
+        print("\n-----------------------------------------------------------------------------PARSE SINGLE MATCH\n")
     
         single_match = eval(response.text.replace('true', 'True').replace('false', 'False'))
         game_duration = single_match['gameDuration']
@@ -88,14 +73,10 @@ class RiotSpider(scrapy.Spider):
             )
             yield request_matches
 
-        yield{
-            game_duration,
-            gamecreationTimeStamp,
-            partecipantsList
+        yield
+        {        
+           single_match
         }
-
-
-
        
 
     def _getUrl(self, type, id):
