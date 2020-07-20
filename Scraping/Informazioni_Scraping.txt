@@ -1,0 +1,14 @@
+# Informazioni Scraping
+
+Per ottenere informazioni sulla quantità di traffico media verso il server di gioco, 
+è importante sapere quando mediamente i giocaori giocano, orari, giorni e durata della partita.
+Magari anche livello, rank del giocatore e altri dettagli per migliorare la simulazione. 
+
+Con la tecnica di scraping, cioè interrogare siti e analizzandone il contenuto, raccogliendolo, si possono ottenere una gran quantità di dati.
+mediante l'uso del framework `scrapy`, sono state create due modalità per ottenere informazioni
+
+* [API RIOT](https://developer.riotgames.com/apis): interrogazioni sul server usando le api di league of legends.
+Dato che ho 100 richieste ogni 2 minuti, l'ho strutturato in questa maniera, 1 richiesta per ottenere la lista delle partite e 99 richieste per leggere le partite, quindi posso controllare 30 utenti all'ora 
+Uso dello spider `riot_spyder.py`
+* [OP.GG](https://euw.op.gg/): interrogazioni sul server mediante l'uso di un sitoweb che raccoglie in modo ordinato le informazioni
+Uso dello spider `opgg_spyder.py`

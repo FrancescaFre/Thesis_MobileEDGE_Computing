@@ -1,0 +1,18 @@
+----------------- INET
+
+3. Open the OMNeT++ IDE and choose the workspace where you have extracted the inet directory.
+   The extracted directory must be a subdirectory of the workspace dir.
+
+4. Import the project using: File | Import | General | Existing projects into Workspace.
+   Then select the workspace dir as the root directory, and be sure NOT to check the
+   "Copy projects into workspace" box. Click Finish.
+
+5. Open the project (if already not open) and wait until the indexer finishes.
+   Now you can build the project by pressing CTRL-B (Project | Build all)
+
+6. To run an example from the IDE open the example's directory in the Project Explorer view,
+   find the corresponding omnetpp.ini file. Right click on it and select Run As / Simulation.
+   This should create a Launch Configuration for this example.
+
+If the build was successful, you may try running the demo simulations.
+Change into examples/ and type "./rundemo".

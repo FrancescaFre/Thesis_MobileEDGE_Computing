@@ -1,0 +1,12 @@
+# Informazioni Mouse Input Detection
+A cosa serve: ad una preliminare analisi dei log forniti per ogni partita di "league of legends", era importante definire 
+se i picchi di informazioni erano proporzionali agli input di gioco del giocatore. 
+
+> Spoiler, non è vero.
+
+
+* rilevazione input del mouse e keyboard mediante il [software mini mouse macro](https://www.turnssoft.com/mini-mouse-macro.html)
+* i file generati .mmmacreo vengono parsati per ottenere un formato "numero azione; ms passati dall'inizio" con lo script `parse_output_mm.py`
+* il csv generato da parse_output_mm.py` poi verrà usato come input allo script `groupby_time` per raggruppare ogni 10 secondi gli input presi 
+dal programma mini mouse macro e comprarli con il log del gioco che fa sample ogni 10 secondi
+
