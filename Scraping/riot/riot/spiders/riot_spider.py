@@ -80,7 +80,6 @@ class RiotSpider(scrapy.Spider):
        
 
     def _getUrl(self, type, id):
-        key = "RGAPI-cc34b06e-be77-4b02-acc5-a4d455c5123e"
         if type == 0: return f"https://euw1.api.riotgames.com/lol/summoner/v4/summoners/by-name/{id}?api_key={key}"
         if type == 1: return f"https://euw1.api.riotgames.com/lol/match/v4/matchlists/by-account/{id}?api_key={key}"
         if type == 2: return f"https://euw1.api.riotgames.com/lol/match/v4/matches/{id}?api_key={key}"
